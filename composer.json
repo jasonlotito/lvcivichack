@@ -9,6 +9,7 @@
         }
     ],
     "require": {
-        "slim/slim": "2.2.0"
+        "slim/slim": "2.2.0",
+        "bachi/couchdb": "dev-master"
     }
 }

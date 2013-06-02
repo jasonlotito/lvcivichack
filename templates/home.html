@@ -64,6 +64,28 @@
 
 </div>
 <!-- /container -->
+
+<div class="modal hide fade" id="postUploadModal">
+  <form action="" id="postUploadForm">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Describe your upload</h3>
+    </div>
+
+    <div class="modal-body">
+      <p>We are currently processing your upload.  Please help us by better describing the data.</p>
+
+      <label for="dataName">Name of Data: <input type="text" name="name" id="dataName"/></label>
+      <label for="dataDescription">Description: <textarea name="description" id="dataDescription"></textarea></label>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn">Close</a>
+      <button type="submit" href="#" class="btn btn-primary">Save changes</button>
+    </div>
+  </form>
+</div>
+
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript">

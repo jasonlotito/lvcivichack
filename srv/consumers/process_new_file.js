@@ -1,5 +1,9 @@
-var config = require('./config.js'),
+var CSVToArray = require('./lib/CSVToArray.js'),
+    config = require('./config.js'),
+    util = require('util'),
     amqp = require('amqp'),
+    fs = require('fs'),
+    byline = require('byline'),
     request = require('request'),
     mysql = require('mysql'),
     nano = require('nano')(config.couchdb),
@@ -9,27 +13,6 @@ var config = require('./config.js'),
 
 console.log("Starting process_new_file.js");
 dbconn.connect();
-
-// clean up the database we created previously
-if(1<0){
-    nano.db.destroy('alice', function() {
-        // create a new database
-        nano.db.create('alice', function() {
-            // specify the database we are going to use
-            var alice = nano.use('alice');
-            // and insert a document in it
-            alice.insert({ crazy: true }, 'rabbit', function(err, body, header) {
-                if (err) {
-                    console.log('[alice.insert] ', err.message);
-                    return;
-                }
-                console.log('you have inserted the rabbit.')
-                console.log(body);
-            });
-        });
-    });
-}
-
 
 // Wait for connection to become established.
 connection.on('ready', connection_ready);
@@ -47,16 +30,66 @@ function process_queue(q){
     q.subscribe(file_processor);
 }
 
-
 function file_processor(message){
-    console.log(message.filename);
-    message.body.split("\n").map(line_processor)
-}
+//    console.log(message);
+    var filedb;
+    console.log("Processing new message");
+    var headers = [];
 
-function line_processor(line){
-    console.log("Line: " + line);
-    line.trim().split(',').map(function(field){
-       console.log("Field: <" + field.trim() + ">");
+    nano.db.create('filedata' ,function(){
+        filedb = nano.use(message.filename);
+
+        var stream = byline(fs.createReadStream(message.storedFile));
+
+        var stored_data = {data:[]};
+
+        stream.on('data', function(line){
+            stored_data.data.push(process_line(line, headers, filedb.insert));
+        });
+
+        stream.on('end', function(){
+            chainsw.insert(stored_data, message.fileId + '_data');
+        })
+
+        chainsw.insert({id:message.fileId}, message.fileId, function(err, body, header){
+            if(err){
+                console.log('CouchDB Error: ', err);
+            }
+//            after_couch_insert(err, body, header, message);
+        });
     });
 }
 
+function process_line(line, headers, insert){
+    var rec = CSVToArray(line, ",", headers);
+    rec = line.split(',');
+//    console.log(rec);
+    return rec;
+
+    if(headers.length<1){
+        headers = rec;
+    } else {
+        try {
+//            insert(rec);
+        } catch (e){
+            console.log('CouchDB Error: ', e);
+        }
+    }
+
+    return rec;
+}
+
+function after_couch_insert(err, body, header, originalMessage){
+    if(err){
+//        console.log('[chainsw.insert] ', err.message);
+        return;
+    }
+//    console.log('insert successful', body, header);
+
+    dbconn.query('UPDATE data_files SET internal_endpoint = ? WHERE id = ?', [
+        header.location,
+        originalMessage.fileId
+    ], function(err, results){
+        console.log(err, results);
+    });
+}
