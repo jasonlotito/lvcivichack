@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Chainsw - Cutting through red tap</title>
+<link rel="stylesheet" href="css/bootstrap.css"/>
+<link rel="stylesheet" href="css/site.css"/>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Main hero unit for a primary marketing message or call to action -->
+  <div class="hero-unit">
+    <h1>chainsw</h1>
+    <h2>cutting through red tape</h2>
+
+    <p class="hero-text">Sharing data shouldn't be as difficult as it is.  MySOD is all about sharing open data
+    quickly and easily.  You just upload the file in an CSV (more formats coming soon!) and we'll do the rest.
+    You can annotate your data with additional information to help make it more useful.  Once it's up, we'll generate
+    all the end points for you, along with the documentation.</p>
+
+    <p><a href="#" class="btn pull-right btn-success upload-data btn-large">Upload Data Now &raquo;</a></p>
+  </div>
+
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="span4">
+      <h2>Signup Now</h2>
+
+        <form action="" class="alert alert-info">
+          <label for="email">Email Address</label>
+          <input class="input-large" type="text" name="email" id="email" placeholder="your@email.com"/>
+          <label for="password">Password</label>
+          <input class="input-large" type="password" name="password" id="password"/>
+          <button class="input-large btn-large btn btn-info" href="#">Signup Now &raquo;</button>
+        </form>
+
+
+    </div>
+    <div class="span4">
+      <h2>What's the cost?</h2>
+
+      <p>Nothing!</p>
+
+      <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div>
+    <div class="span4">
+      <h2>Heading</h2>
+
+      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+        porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+        fermentum massa justo sit amet risus.</p>
+
+      <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div>
+  </div>
+
+  <hr>
+
+  <footer>
+    <p>A <a href="http://jasonlotito.com">Jason Lotito</a> Hack - &copy; 2013</p>
+  </footer>
+
+</div>
+<!-- /container -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+(function (a) {
+  if (window.filepicker) {
+    return
+  }
+  var b = a.createElement("script");
+  b.type = "text/javascript";
+  b.async = !0;
+  b.src = ("https:" === a.location.protocol ? "https:" : "http:") + "//api.filepicker.io/v1/filepicker.js";
+  var c = a.getElementsByTagName("script")[0];
+  c.parentNode.insertBefore(b, c);
+  var d = {};
+  d._queue = [];
+  var e = "pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");
+  var f = function (a, b) {
+    return function () {
+      b.push([a, arguments])
+    }
+  };
+  for (var g = 0; g < e.length; g++) {
+    d[e[g]] = f(e[g], d._queue)
+  }
+  window.filepicker = d
+  d.setKey('AjT3Ms44nTPuEShOhyQtgz');
+})(document);
+</script>
+<script type="text/javascript">var SID='<?=session_id()?>';</script>
+<script type="text/javascript" src="js/upload.js"></script>
+</body>
+</html>

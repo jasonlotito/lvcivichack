@@ -1,0 +1,12 @@
+{
+  "name": "chainsw",
+  "description": "Consumer side stuff for chainsw",
+  "author": "Jason Lotito <jasonlotito@gmail.com>",
+  "dependencies": {
+    "amqp": "*",
+    "request": "*",
+    "mysql": "2.0.0-alpha8",
+    "couchdb": "*",
+    "nano": "*"
+  }
+}

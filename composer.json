@@ -1,0 +1,14 @@
+{
+    "name": "jasonlotito/chainsw.com",
+    "description": "Open Data API Generator",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Jason Lotito",
+            "email": "jasonlotito@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "2.2.0"
+    }
+}
